@@ -1,7 +1,12 @@
 # ~/.zshenv -> ~/zsh/zshenv
 # Runs for every zsh (interactive, login, scripts). Keep it tiny and side-effect free.
 
+# The repo *is* ZDOTDIR. An inherited ZDOTDIR wins only if it still resolves, so
+# a stale export (moved/removed directory) cannot strand the shell; symlinks such
+# as a legacy ~/zsh -> ~/.zsh are canonicalised away.
 export ZDOTDIR=${ZDOTDIR:-$HOME/.zsh}
+[[ -d $ZDOTDIR ]] || ZDOTDIR=$HOME/.zsh
+export ZDOTDIR=${ZDOTDIR:A}
 
 export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-$HOME/.config}
 export XDG_CACHE_HOME=${XDG_CACHE_HOME:-$HOME/.cache}

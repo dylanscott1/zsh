@@ -14,7 +14,7 @@ if (( $+commands[starship] )); then
     rm -f -- "$_zstarship_init.zwc"
     zcompile -R -- "$_zstarship_init" 2>/dev/null
   fi
-  source "$_zstarship_init"
+  [[ -s $_zstarship_init ]] && source "$_zstarship_init"
 fi
 unset _zstarship_init
 

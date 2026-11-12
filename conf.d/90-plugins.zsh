@@ -14,7 +14,7 @@ if (( $+commands[fzf] )); then
   if [[ ! -s $_fzf_init || $commands[fzf] -nt $_fzf_init ]]; then
     fzf --zsh >| "$_fzf_init"
   fi
-  source "$_fzf_init"
+  [[ -s $_fzf_init ]] && source "$_fzf_init"
   unset _fzf_init
 fi
 
@@ -24,18 +24,20 @@ if (( $+commands[zoxide] )); then
   if [[ ! -s $_zoxide_init || $commands[zoxide] -nt $_zoxide_init ]]; then
     zoxide init zsh >| "$_zoxide_init"
   fi
-  source "$_zoxide_init"
+  [[ -s $_zoxide_init ]] && source "$_zoxide_init"
   unset _zoxide_init
 
   # `cd` gains zoxide's frecency for bare names, but keeps real cd semantics for
   # paths, `-`, flags and no arguments. `z` and `zi` remain available as before.
-  cd() {
-    if [[ $# -eq 1 && $1 != - && ! -e $1 ]]; then
-      z "$1" 2>/dev/null || builtin cd "$1"
-    else
-      builtin cd "$@"
-    fi
-  }
+  if (( $+functions[__zoxide_z] )); then
+    cd() {
+      if [[ $# -eq 1 && $1 != - && ! -e $1 ]]; then
+        z "$1" 2>/dev/null || builtin cd "$1"
+      else
+        builtin cd "$@"
+      fi
+    }
+  fi
 fi
 
 # --- defer (loads fzf-tab after the first prompt) ----------------------------

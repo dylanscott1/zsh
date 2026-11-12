@@ -3,6 +3,9 @@
 
 [[ -o interactive ]] || return 0
 
+# Generated init caches and the completion dump live here; absent on a fresh clone.
+[[ -d $ZDOTDIR/cache ]] || mkdir -p -- "$ZDOTDIR/cache"
+
 for _zsh_conf in "$ZDOTDIR"/conf.d/*.zsh(N); do
   source "$_zsh_conf"
 done
