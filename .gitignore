@@ -1,0 +1,5 @@
+# Generated at runtime: init caches, compiled zwc files, completion dump.
+/cache/
+
+# Vendored git clones, installed by install.sh from plugins.tsv.
+/plugins/

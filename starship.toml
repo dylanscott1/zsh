@@ -1,0 +1,62 @@
+# Starship: compact, ANSI-coloured (adapts to the terminal theme), no language
+# version subprocesses in the hot path.
+
+add_newline = false
+command_timeout = 500
+
+format = """$directory$git_branch$git_status$docker_context$nodejs$python$rust$golang$cmd_duration
+$character"""
+
+[character]
+success_symbol = "[❯](bold green)"
+error_symbol = "[❯](bold red)"
+vimcmd_symbol = "[❮](bold green)"
+
+[directory]
+truncation_length = 4
+truncate_to_repo = true
+style = "bold cyan"
+format = "[$path]($style)[$read_only]($read_only_style) "
+
+[git_branch]
+symbol = "\ue0a0 "
+style = "bold purple"
+truncation_length = 24
+truncation_symbol = "…"
+
+[git_status]
+style = "bold red"
+format = '([$all_status$ahead_behind]($style) )'
+
+[cmd_duration]
+min_time = 2000
+format = "[$duration]($style) "
+style = "yellow"
+show_milliseconds = false
+
+# Language icons only: detecting a project is cheap, running `node --version`
+# on every prompt is not. `\uXXXX` escapes keep the glyphs unambiguous.
+[nodejs]
+symbol = "\ue718 "
+style = "bold green"
+format = '[$symbol]($style)'
+
+[python]
+symbol = "\ue73c "
+style = "bold yellow"
+format = '[$symbol]($style)'
+
+[rust]
+symbol = "\ue7a8 "
+style = "bold red"
+format = '[$symbol]($style)'
+
+[golang]
+symbol = "\ue724 "
+style = "bold cyan"
+format = '[$symbol]($style)'
+
+[docker_context]
+symbol = "\ue7b0 "
+style = "bold blue"
+format = '[$symbol$context]($style) '
