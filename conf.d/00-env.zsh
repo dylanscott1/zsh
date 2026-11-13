@@ -16,3 +16,4 @@ export FZF_CTRL_R_OPTS="--preview 'echo {}' --preview-window=down:3:wrap"
 
 # --- prompt ------------------------------------------------------------------
 export STARSHIP_CONFIG="$ZDOTDIR/starship.toml"
+eval "$(/home/dylan/.local/bin/mise activate zsh)"
